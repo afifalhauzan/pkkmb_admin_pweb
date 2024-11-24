@@ -47,6 +47,13 @@ class PageController extends Controller
         return view('mahasiswa_dashboard', compact('clusters')); // Return the view for Mahasiswa
     }
 
+    public function QCmahasiswa()
+    {
+        // Fetch necessary data or process logic here
+        $clusters = Cluster::get();
+        return view('QC View/QCmahasiswa_dashboard', compact('clusters')); // Return the view for Mahasiswa
+    }
+
     public function absensi()
     {
         // Fetch necessary data or process logic here
@@ -59,6 +66,16 @@ class PageController extends Controller
         // Fetch necessary data or process logic here
         $kegiatan = Kegiatan::get();
         return view('kegiatan_dashboard', compact('kegiatan')); // Return the view for Absensi
+    }
+
+    public function QCViewTugas($id_tugas)
+    {
+        
+        // Optionally, fetch the data for the specific assignment
+        $tugas = ValidTugas::find($id_tugas);
+
+        // Pass the data to the view
+        return view('QC View/QCpenugasan_view_dashboard', compact('tugas'));
     }
 
     public function toEditMahasiswa($nim)
@@ -83,6 +100,59 @@ class PageController extends Controller
         return view('mahasiswa_add_dashboard', compact('clusters'));
     }
 
+    public function toAddAbsensi()
+    {
+        $kegiatan = Kegiatan::all();
+
+        // Return view for adding mahasiswa
+        return view('absensi_add_dashboard', compact('kegiatan'));
+    }
+
+    public function toAddKegiatan(Request $request)
+    {
+        return view('kegiatan_add_dashboard');
+    }
+
+    public function addKegiatan(Request $request)
+    {
+        $admin_nim = auth()->user()->nim;
+        $kegiatan = Kegiatan::get();
+
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'tahun' => 'required|integer|min:2000|max:' . date('Y'),
+        ]);
+
+        Kegiatan::create([
+            'Admin_NIM' => $admin_nim,
+            'Nama' => $request->input('nama'),
+            'Tahun' => $request->input('tahun'),
+        ]);
+        // Return view for adding mahasiswa
+        return view('kegiatan_dashboard', compact('admin_nim', 'kegiatan'));
+    }
+
+    public function addAbsensi(Request $request)
+    {
+        //dd($request->all());
+        // Validate the incoming request
+        $validated = $request->validate([
+            'kode_presensi' => 'required|string|max:255',
+            'kegiatan_id' => 'required|exists:kegiatan,ID_Kegiatan', // Ensure kegiatan_id is valid
+            'description' => 'required|string|max:1000',
+        ]);
+
+        // Create a new ValidPresensi record
+        ValidPresensi::create([
+            'Kode_Presensi' => $validated['kode_presensi'],
+            'Kegiatan_ID' => $validated['kegiatan_id'],
+            'Description' => $validated['description'],
+        ]);
+
+        // Redirect back to the default page with a success message
+        return redirect()->route('absensi')->with('success', 'Presensi berhasil ditambahkan.');
+    }
+
     public function AddMahasiswa(Request $request)
     {
         // Fetch clusters for the form
@@ -104,7 +174,7 @@ class PageController extends Controller
             'Cluster_ID' => $validatedData['cluster_id'],
             'Prodi' => $validatedData['prodi'],
             'Email' => $validatedData['email'],
-            'Admin_NIM' => auth()->user()->NIM, // Automatically assign the Admin_NIM from the logged-in user
+            'Admin_NIM' => auth()->user()->nim, // Automatically assign the Admin_NIM from the logged-in user
         ]);
 
         // Redirect or return a view with a success message

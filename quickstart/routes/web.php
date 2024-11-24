@@ -32,6 +32,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/mahasiswa/add', [PageController::class, 'toAddMahasiswa'])->name('toAddMahasiswa');
     Route::get('/dashboard/mahasiswa/{cluster}', [PageController::class, 'cekMhsCluster'])->name('cluster.show');
 
+    Route::get('/dashboard/QCmahasiswa', [PageController::class, 'QCmahasiswa'])->name('QCmahasiswa');
+    Route::get('/dashboard/QCPenugasan/{id_tugas}', [PageController::class, 'QCViewTugas'])->name('QCViewTugas');
+
     Route::get('/dashboard/penugasan/add', [PageController::class, 'toAddPenugasan'])->name('toAddPenugasan');
     Route::post('/dashboard', [PageController::class, 'AddPenugasan'])->name('AddPenugasan');
 
@@ -40,6 +43,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/dashboard/mahasiswa/{id}', [PageController::class, 'EditMahasiswa'])->name('EditMahasiswa');
     Route::delete('/dashboard/mahasiswa/{id}', [PageController::class, 'DeleteMahasiswa'])->name('DeleteMahasiswa');
     Route::post('/dashboard/mahasiswa/add', [PageController::class, 'AddMahasiswa'])->name('AddMahasiswa');
+
+    Route::get('/dashboard/absensi/add', [PageController::class, 'toAddAbsensi'])->name('toAddAbsensi');
+    Route::post('/dashboard/absensi/add/', [PageController::class, 'addAbsensi'])->name('addAbsensi');
+
+    Route::get('/dashboard/kegiatan/add', [PageController::class, 'toAddKegiatan'])->name('toAddKegiatan');
+    Route::post('/dashboard/kegiatan/add/', [PageController::class, 'addKegiatan'])->name('addKegiatan');
 
 });
 

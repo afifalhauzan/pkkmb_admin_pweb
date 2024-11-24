@@ -24,7 +24,7 @@
                         <!-- Title and Add Button -->
                         <div class="flex justify-between items-center p-4 border-b">
                             <h2 class="text-xl font-semibold">Daftar Kegiatan</h2>
-                            <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Tambah Tugas</a>
+                            <a href="{{ route('toAddKegiatan') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Tambah Kegiatan</a>
                         </div>
                         <div class="p-4 space-y-4">
                             @foreach($kegiatan as $kegiatan)

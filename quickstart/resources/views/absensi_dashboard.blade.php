@@ -24,7 +24,7 @@
                         <!-- Title and Add Button -->
                         <div class="flex justify-between items-center p-4 border-b">
                             <h2 class="text-xl font-semibold">Daftar Absensi</h2>
-                            <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Tambah Tugas</a>
+                            <a href="{{ route('toAddAbsensi') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Tambah Absensi</a>
                         </div>
                         <div class="p-4 space-y-4">
                             @foreach($valid_presensi as $valid_presensi)

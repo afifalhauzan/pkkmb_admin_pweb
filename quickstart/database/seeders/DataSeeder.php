@@ -72,7 +72,7 @@ class DataSeeder extends Seeder
         DB::table('mahasiswa')->insert([
             [
                 'NIM' => '22515010111011',
-                'Admin_NIM' => '22515010111006',
+                'Admin_NIM' => '22515010111001',
                 'Cluster_ID' => 1,
                 'Nama' => 'Agus Prasetyo',
                 'Prodi' => 'Teknik Informatika',
@@ -80,7 +80,7 @@ class DataSeeder extends Seeder
             ],
             [
                 'NIM' => '22515010111012',
-                'Admin_NIM' => '22515010111007',
+                'Admin_NIM' => '22515010111002',
                 'Cluster_ID' => 2,
                 'Nama' => 'Dewi Sulastri',
                 'Prodi' => 'Teknik Komputer',
@@ -88,7 +88,7 @@ class DataSeeder extends Seeder
             ],
             [
                 'NIM' => '22515010111013',
-                'Admin_NIM' => '22515010111008',
+                'Admin_NIM' => '22515010111003',
                 'Cluster_ID' => 3,
                 'Nama' => 'Budi Santoso',
                 'Prodi' => 'Sistem Informasi',
@@ -96,7 +96,7 @@ class DataSeeder extends Seeder
             ],
             [
                 'NIM' => '22515010111014',
-                'Admin_NIM' => '22515010111009',
+                'Admin_NIM' => '22515010111004',
                 'Cluster_ID' => 4,
                 'Nama' => 'Siti Nurhaliza',
                 'Prodi' => 'Teknologi Informasi',
@@ -104,7 +104,7 @@ class DataSeeder extends Seeder
             ],
             [
                 'NIM' => '22515010111015',
-                'Admin_NIM' => '22515010111010',
+                'Admin_NIM' => '22515010111005',
                 'Cluster_ID' => 5,
                 'Nama' => 'Rizky Hidayat',
                 'Prodi' => 'Pendidikan Teknologi Informasi',
