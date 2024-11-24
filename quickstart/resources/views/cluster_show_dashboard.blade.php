@@ -26,7 +26,7 @@
                             <div class="flex-1">
                                 <h2 class="text-xl font-semibold">Daftar Mahasiswa berdasarkan Cluster</h2>
                             </div>
-                            <!-- Cek di Cluster Form on the right -->
+
                             <!-- Cek di Cluster Form on the right -->
                             <div class="ml-6 w-1/3">
                                 <form id="clusterForm" method="GET">
@@ -45,6 +45,11 @@
                                 </form>
                             </div>
 
+                            <!-- Title and Add Button -->
+                            <div class="flex justify-between items-center p-4">
+                                <a href="{{route ('toAddMahasiswa') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Tambah Mahasiswa</a>
+                            </div>
+
                         </div>
                         <div class="p-4 space-y-4">
                             @foreach($clusterMahasiswa as $mahasiswa)
@@ -54,10 +59,17 @@
                                     <p class="font-sans">{{ $mahasiswa->Prodi }}</p> <!-- Add more fields as necessary -->
                                 </div>
 
+
                                 <!-- Action buttons on the right -->
                                 <div class="flex space-x-4">
-                                    <a href="" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">Edit</a> <!-- Button for Edit -->
-                                    <a href="" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition">Delete</a> <!-- Button for Delete -->
+                                    <a href="{{ route('toEditMahasiswa', ['id' => $mahasiswa->NIM]) }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">Edit</a> <!-- Button for Edit -->
+                                    <form action="{{ route('DeleteMahasiswa', ['id' => $mahasiswa->NIM]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Mahasiswa?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             @endforeach

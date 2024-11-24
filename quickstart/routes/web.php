@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
 
 // Route::get('/', function () {
 //     return view('login');
@@ -28,8 +29,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/mahasiswa', [PageController::class, 'mahasiswa'])->name('mahasiswa');
     Route::get('/dashboard/absensi', [PageController::class, 'absensi'])->name('absensi');
     Route::get('/dashboard/kegiatan', [PageController::class, 'kegiatan'])->name('kegiatan');
+    Route::get('/dashboard/mahasiswa/add', [PageController::class, 'toAddMahasiswa'])->name('toAddMahasiswa');
     Route::get('/dashboard/mahasiswa/{cluster}', [PageController::class, 'cekMhsCluster'])->name('cluster.show');
 
+    Route::get('/dashboard/penugasan/add', [PageController::class, 'toAddPenugasan'])->name('toAddPenugasan');
+    Route::post('/dashboard', [PageController::class, 'AddPenugasan'])->name('AddPenugasan');
+
+    // Route::get('/dashboard/mahasiswa/add', [PageController::class, 'toAddMahasiswa'])->name('toAddMahasiswa');
+    Route::get('/dashboard/mahasiswa/edit/{id}', [PageController::class, 'toEditMahasiswa'])->name('toEditMahasiswa');
+    Route::put('/dashboard/mahasiswa/{id}', [PageController::class, 'EditMahasiswa'])->name('EditMahasiswa');
+    Route::delete('/dashboard/mahasiswa/{id}', [PageController::class, 'DeleteMahasiswa'])->name('DeleteMahasiswa');
+    Route::post('/dashboard/mahasiswa/add', [PageController::class, 'AddMahasiswa'])->name('AddMahasiswa');
 
 });
 

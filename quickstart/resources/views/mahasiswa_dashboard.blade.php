@@ -26,6 +26,7 @@
                             <div class="flex-1">
                                 <h2 class="text-xl font-semibold">Daftar Mahasiswa berdasarkan Cluster</h2>
                             </div>
+
                             <!-- Cek di Cluster Form on the right -->
                             <div class="ml-6 w-1/3">
                                 <form id="clusterForm" method="GET">
@@ -50,6 +51,11 @@
                                     this.action = "/dashboard/mahasiswa/" + selectedCluster; // Set the form action dynamically
                                 });
                             </script>
+
+                            <!-- Title and Add Button -->
+                            <div class="flex justify-between items-center p-4">
+                                <a href="" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Tambah Mahasiswa</a>
+                            </div>
 
 
 
