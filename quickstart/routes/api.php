@@ -13,7 +13,6 @@ Route::get('/tugas/status/{nim}/{id_tugas}', [UserController::class, 'getStatusT
 Route::put('/tugas/update/{nim}/{id_tugas}', [UserController::class, 'updateTugas']);
 Route::post('/tugas/submit/{nim}/{id_tugas}', [UserController::class, 'submitTugas']);
 
-
 Route::post('/presensi/submit/{nim}/{kode_presensi}', [UserController::class, 'submitPresensi']);
 
 

@@ -33,7 +33,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/mahasiswa/{cluster}', [PageController::class, 'cekMhsCluster'])->name('cluster.show');
 
     Route::get('/dashboard/QCmahasiswa', [PageController::class, 'QCmahasiswa'])->name('QCmahasiswa');
+    Route::get('/dashboard/QCmahasiswa/{cluster}', [PageController::class, 'QCcekMhsCluster'])->name('QCcekMhsCluster');
     Route::get('/dashboard/QCPenugasan/{id_tugas}', [PageController::class, 'QCViewTugas'])->name('QCViewTugas');
+    Route::get('/dashboard/QCPenugasan', [PageController::class, 'QCtoAddPenugasan'])->name('QCtoAddPenugasan');
+    Route::post('/dashboard/QCPenugasan/add', [PageController::class, 'AddPenugasan'])->name('QCAddPenugasan');
+    Route::put('/dashboard/QCPenugasan/update-nilai/{id_tugas}/{nim}', [PageController::class, 'QCupdateNilai'])->name('QCupdateNilai');
+    Route::post('/dashboard/QCPenugasan/update-nilai/{id_tugas}/{nim}', [PageController::class, 'QCupdateNilai'])->name('QCupdateNilai');
 
     Route::get('/dashboard/penugasan/add', [PageController::class, 'toAddPenugasan'])->name('toAddPenugasan');
     Route::post('/dashboard', [PageController::class, 'AddPenugasan'])->name('AddPenugasan');

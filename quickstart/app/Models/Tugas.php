@@ -10,7 +10,7 @@ class Tugas extends Model
     use HasFactory;
     protected $table = 'tugas';
 
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $incrementing = true;
 
     protected $fillable = ['Mahasiswa_NIM', 'ID_Tugas', 'File_Tugas', 'Nilai'];

@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
+
 
 class PageController extends Controller
 {
@@ -70,12 +72,35 @@ class PageController extends Controller
 
     public function QCViewTugas($id_tugas)
     {
-        
-        // Optionally, fetch the data for the specific assignment
+        // Fetch the specific assignment
         $tugas = ValidTugas::find($id_tugas);
 
-        // Pass the data to the view
-        return view('QC View/QCpenugasan_view_dashboard', compact('tugas'));
+        $submittedMahasiswa = Tugas::where('ID_Tugas', $id_tugas)
+            ->join('mahasiswa', 'tugas.Mahasiswa_NIM', '=', 'mahasiswa.NIM')
+            ->select('tugas.*', 'mahasiswa.Nama as NamaMahasiswa')
+            ->get();
+
+        // Pass both the tugas and submitted mahasiswa to the view
+        return view('QC View/QCpenugasan_view_dashboard', compact('tugas', 'submittedMahasiswa'));
+    }
+
+    public function QCupdateNilai(Request $request, $id_tugas, $nim)
+    {
+        $validated = $request->validate([
+            'nilai' => 'required|integer|min:0|max:100',
+        ]);
+
+        $tugas = Tugas::where('ID_Tugas', $id_tugas)
+            ->where('Mahasiswa_NIM', $nim)
+            ->first();
+
+        if ($tugas) {
+            $tugas->Nilai = $validated['nilai'];
+            $tugas->save();
+            return redirect()->back();
+        }
+
+        return redirect()->back();
     }
 
     public function toEditMahasiswa($nim)
@@ -215,6 +240,19 @@ class PageController extends Controller
         return view('mahasiswa_dashboard', compact('clusters'));
     }
 
+    public function QCcekMhsCluster($cluster)
+    {
+        $clusters = Cluster::get();
+
+        // Logic to fetch and display data based on the selected cluster
+        $noCluster = Cluster::find($cluster); // Or your logic to fetch related data
+        $mahasiswa = Mahasiswa::get();
+        $clusterMahasiswa = $noCluster->mahasiswa;
+
+        // Return a view and pass data to it
+        return view('QC View/QCcluster_show_dashboard', compact('clusters'), compact('clusterMahasiswa'), compact('mahasiswa'));
+    }
+
     public function cekMhsCluster($cluster)
     {
         $clusters = Cluster::get();
@@ -257,6 +295,16 @@ class PageController extends Controller
         $valid_tugas = ValidTugas::get(); // Adjust this query based on your requirements
 
         return view('penugasan_add_dashboard', compact('valid_tugas'), compact('kegiatan'));  // Default for Admin or other roles
+    }
+
+    public function QCtoAddPenugasan()
+    {
+        $user = auth()->user();
+        $kegiatan = Kegiatan::all();
+
+        $valid_tugas = ValidTugas::get(); // Adjust this query based on your requirements
+
+        return view('QC View/QCpenugasan_add_dashboard', compact('valid_tugas'), compact('kegiatan'));  // Default for Admin or other roles
     }
 
     public function AddPenugasan(Request $request)
