@@ -11,7 +11,15 @@ Route::get('/mahasiswa/{nim}', [UserController::class, 'getMahasiswaByNim']);
 
 Route::get('/tugas/status/{nim}/{id_tugas}', [UserController::class, 'getStatusTugas']);
 Route::put('/tugas/update/{nim}/{id_tugas}', [UserController::class, 'updateTugas']);
-Route::post('/tugas/submit/{nim}/{id_tugas}', [UserController::class, 'submitTugas']);
+Route::get('/tugas/submit/{nim}/{id_tugas}/{file_tugas}', [UserController::class, 'submitTugas']);
+Route::post('/tugas/submit/{nim}/{taskId}/{submissionLink}', [UserController::class, 'submitTugas'])
+    ->where('submissionLink', '.*');
+
+
+//Route::post('/tugas/submit/{nim}/{id_tugas}', [UserController::class, 'submitTugas']);
+
+
+
 
 Route::post('/presensi/submit/{nim}/{kode_presensi}', [UserController::class, 'submitPresensi']);
 

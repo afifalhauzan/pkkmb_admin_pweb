@@ -11,6 +11,7 @@ use App\Models\Tugas;
 use App\Models\Kegiatan;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -35,7 +36,7 @@ class UserController extends Controller
     public function getListTugas()
     {
         // Retrieve all valid tasks (ValidTugas) along with their 'Judul' and 'Deskripsi'
-        $tugas = ValidTugas::all(['Judul', 'Deskripsi']);
+        $tugas = ValidTugas::all(['ID_Tugas', 'Judul', 'Deskripsi']);
 
         // Return the tasks as a JSON response
         return response()->json([
@@ -80,25 +81,34 @@ class UserController extends Controller
         }
     }
 
-    public function submitTugas(Request $request, $nim, $id_tugas)
+    public function submitTugas(Request $request, $nim, $id_tugas, $file_tugas)
     {
-        $request->validate([
-            'file_tugas' => 'required|url'
-        ]);
+        // Log::info("NIM: " . $nim);
+        // Log::info("ID Tugas: " . $id_tugas);
+        // Log::info("File Tugas: " . $file_tugas);
+        // $file_tugas = urldecode($file_tugas);
+        // // Validate that the file_tugas is a valid URL
+        // if (!filter_var($file_tugas, FILTER_VALIDATE_URL)) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Invalid URL for the submission link'
+        //     ], 400);
+        // }
 
+        // Check if the mahasiswa exists
         $mahasiswa = Mahasiswa::where('NIM', $nim)->first();
         if (!$mahasiswa) {
             return response()->json([
                 'success' => false,
                 'message' => 'Mahasiswa not found'
-            ], 404); // Explicit 404 status code
+            ], 404);
         }
 
         // Save the task submission
         $tugas = new Tugas();
         $tugas->Mahasiswa_NIM = $nim;
         $tugas->ID_Tugas = $id_tugas;
-        $tugas->File_Tugas = $request->file_tugas;
+        $tugas->File_Tugas = $file_tugas;
         $tugas->save();
 
         return response()->json([
@@ -106,6 +116,9 @@ class UserController extends Controller
             'message' => 'Tugas submitted successfully'
         ]);
     }
+
+
+
 
     public function updateTugas(Request $request, $nim, $id_tugas)
     {
@@ -167,6 +180,7 @@ class UserController extends Controller
                 'data' => [
                     'id_tugas' => $tugas->ID_Tugas,
                     'file_tugas' => $tugas->File_Tugas,
+                    'nilai' => $tugas->Nilai,
                     'updated_at' => $tugas->updated_at,
                 ]
             ]);
@@ -211,7 +225,7 @@ class UserController extends Controller
         if ($presensi) {
             return response()->json([
                 'success' => false,
-                'message' => 'Presensi already submitted'
+                'message' => 'Anda sudah presensi sebelumnya'
             ], 400);
         }
 
