@@ -104,6 +104,18 @@ class UserController extends Controller
             ], 404);
         }
 
+        // Check if the task has already been submitted
+        $existingSubmission = Tugas::where('Mahasiswa_NIM', $nim)
+            ->where('ID_Tugas', $id_tugas)
+            ->first();
+
+        if ($existingSubmission) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tugas has already been submitted'
+            ], 409); // HTTP 409 Conflict
+        }
+
         // Save the task submission
         $tugas = new Tugas();
         $tugas->Mahasiswa_NIM = $nim;
@@ -116,9 +128,6 @@ class UserController extends Controller
             'message' => 'Tugas submitted successfully'
         ]);
     }
-
-
-
 
     public function updateTugas(Request $request, $nim, $id_tugas)
     {
