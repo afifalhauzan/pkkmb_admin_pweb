@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost'],
+    'allowed_origins' => ['http://localhost', 'https://pkkmbadmin.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
