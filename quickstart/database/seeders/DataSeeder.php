@@ -122,28 +122,28 @@ class DataSeeder extends Seeder
         
         DB::table('valid_tugas')->insert([
             [
-                'Judul' => 'Tugas 1: Analisis Sistem Informasi',
-                'Deskripsi' => 'Menganalisis sistem informasi yang digunakan di perusahaan.',
+                'Judul' => 'Tugas 1: Professional Ventures',
+                'Deskripsi' => 'Bangun langkah awal menuju karier profesionalmu dengan membuat akun LinkedIn yang menarik! Di tugas ini, kamu akan membuat profil LinkedIn yang mencerminkan minat dan tujuanmu. Lengkapi profil dengan foto formal, deskripsi singkat tentang dirimu, serta pencapaian yang kamu miliki. Selain itu, eksplorasi jaringan profesional di bidang yang kamu minati dengan mengikuti perusahaan, komunitas, atau figur inspiratif. LinkedIn adalah tempat untuk memperluas wawasan dan membangun relasi yang mendukung perjalanan akademik dan kariermu ke depan.',
                 'Admin_NIM' => '22515010111006',
             ],
             [
-                'Judul' => 'Tugas 2: Pembuatan Website',
-                'Deskripsi' => 'Membuat website berbasis HTML dan CSS.',
+                'Judul' => 'Tugas 2: Chapter of Creativity',
+                'Deskripsi' => 'Saatnya menunjukkan siapa dirimu! Buatlah video berdurasi 2-3 menit yang menceritakan minat, bakat, dan rencana perkuliahanmu. Video ini bisa berisi tentang apa yang membuatmu bersemangat, keterampilan unik yang kamu miliki, atau apa saja yang ingin kamu capai selama masa kuliah. Gunakan kreativitasmu dalam membuat video ini! Selain menjadi ruang ekspresi, tugas ini juga melatih kemampuan komunikasi dan kepercayaan dirimu. Video ini bisa menjadi langkah awal untuk memperkenalkan dirimu kepada teman dan dosen.',
                 'Admin_NIM' => '22515010111007',
             ],
             [
-                'Judul' => 'Tugas 3: Implementasi Algoritma Sorting',
-                'Deskripsi' => 'Mengimplementasikan algoritma sorting dalam bahasa pemrograman Java.',
+                'Judul' => 'Tugas 3: Hello World!',
+                'Deskripsi' => 'Selamat datang di dunia pemrograman! Tugas ini mengajakmu untuk membuat kode sederhana “Hello, World!” menggunakan bahasa Java. Kamu akan belajar bagaimana menulis dan menjalankan program pertamamu, serta memahami dasar-dasar cara kerja kode pemrograman. Tugas ini cocok untuk kamu yang baru pertama kali belajar coding. Jangan lupa untuk mengunggah tangkapan layar hasil kode dan menjelaskan secara singkat apa yang terjadi ketika program dijalankan. Mulailah langkah kecilmu di dunia teknologi dengan semangat!',
                 'Admin_NIM' => '22515010111008',
             ],
             [
-                'Judul' => 'Tugas 4: Analisis Jaringan Komputer',
-                'Deskripsi' => 'Menganalisis dan merancang jaringan komputer untuk perusahaan.',
+                'Judul' => 'Tugas 4: Business Brainstorming',
+                'Deskripsi' => 'Punya ide bisnis teknologi yang bisa jadi solusi masa depan? Di tugas ini, kamu akan membuat proposal IT Business Plan sederhana. Jelaskan ide bisnismu, masalah yang ingin diselesaikan, solusi berbasis teknologi, serta gambaran target pasar dan model bisnisnya. Tugas ini membantu kamu berpikir kreatif dan inovatif sambil mengenal lebih dalam tentang peluang bisnis di dunia IT. Jangan takut untuk berimajinasi dan menggali ide-ide baru yang bisa memberikan dampak positif!',
                 'Admin_NIM' => '22515010111009',
             ],
             [
-                'Judul' => 'Tugas 5: Pengembangan Aplikasi Mobile',
-                'Deskripsi' => 'Membuat aplikasi mobile sederhana menggunakan Flutter.',
+                'Judul' => 'Tugas 5: Discovering Tech Career',
+                'Deskripsi' => 'Temukan berbagai peluang karier menarik di dunia teknologi! Dalam tugas ini, kamu diminta membuat daftar lima karier IT, seperti software engineer atau data analyst. Jelaskan peran dari setiap karier, keterampilan yang dibutuhkan, serta jalur pendidikan atau sertifikasi yang relevan. Tugas ini membantumu memahami dunia karier IT sekaligus merencanakan langkah-langkah strategis selama perkuliahan. Dengan mengenali karier yang sesuai dengan minatmu, kamu bisa mempersiapkan diri untuk masa depan yang cemerlang!',
                 'Admin_NIM' => '22515010111010',
             ],
         ]);

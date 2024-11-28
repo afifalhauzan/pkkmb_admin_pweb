@@ -100,7 +100,7 @@ class UserController extends Controller
         if (!$mahasiswa) {
             return response()->json([
                 'success' => false,
-                'message' => 'Mahasiswa not found'
+                'message' => 'Mahasiswa tidak ditemukan'
             ], 404);
         }
 
@@ -112,7 +112,7 @@ class UserController extends Controller
         if ($existingSubmission) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tugas has already been submitted'
+                'message' => 'Yah, kamu sudah submit tugas sebelumnya'
             ], 409); // HTTP 409 Conflict
         }
 
@@ -125,7 +125,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Tugas submitted successfully'
+            'message' => 'Berhasil submit Tugas, gacor!'
         ]);
     }
 
