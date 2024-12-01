@@ -32,7 +32,6 @@
                         <!--  -->
                         <form action="{{ route('AddPenugasan') }}" method="POST" class="p-6">
                             @csrf
-
                             <!-- Judul -->
                             <div class="mb-4">
                                 <label for="judul" class="block text-sm font-medium text-gray-700">Judul</label>

@@ -33,7 +33,6 @@
                         <!--  -->
                         <form action="{{ route('AddMahasiswa') }}" method="POST" class="p-6">
                             @csrf
-
                             <!-- NIM -->
                             <div class="mb-4">
                                 <label for="nim" class="block text-sm font-medium text-gray-700">NIM</label>
