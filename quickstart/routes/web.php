@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
@@ -51,10 +52,16 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/absensi/add', [PageController::class, 'toAddAbsensi'])->name('toAddAbsensi');
     Route::post('/dashboard/absensi/add/', [PageController::class, 'addAbsensi'])->name('addAbsensi');
+    Route::delete('/absensi/{id}', [PageController::class, 'absensiDestroy'])->name('absensi.destroy');
 
     Route::get('/dashboard/kegiatan/add', [PageController::class, 'toAddKegiatan'])->name('toAddKegiatan');
     Route::post('/dashboard/kegiatan/add/', [PageController::class, 'addKegiatan'])->name('addKegiatan');
 
+
+    // Export Routes for Admin PIT (PIT-UR-07)
+    Route::get('/export/kegiatan', [ExportController::class, 'exportKegiatan'])->name('export.kegiatan');
+    Route::get('/export/absensi', [ExportController::class, 'exportAbsensi'])->name('export.absensi');
+    Route::get('/export/tugas', [ExportController::class, 'exportTugas'])->name('export.tugas');
 });
 
 

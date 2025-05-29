@@ -10,6 +10,7 @@ use App\Models\ValidPresensi;
 use App\Models\Tugas;
 use App\Models\Kegiatan;
 use App\Models\Presensi;
+use Carbon\Carbon; // Import Carbon for timestamp
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -23,7 +24,6 @@ class UserController extends Controller
 
     public function getKegiatan()
     {
-        // Fetch all kegiatan records with specific fields
         $kegiatan = Kegiatan::all(['Nama', 'Tahun']);
 
         return response()->json([
@@ -35,10 +35,8 @@ class UserController extends Controller
 
     public function getListTugas()
     {
-        // Retrieve all valid tasks (ValidTugas) along with their 'Judul' and 'Deskripsi'
         $tugas = ValidTugas::all(['ID_Tugas', 'Judul', 'Deskripsi']);
 
-        // Return the tasks as a JSON response
         return response()->json([
             'success' => true,
             'data' => $tugas
@@ -48,14 +46,11 @@ class UserController extends Controller
 
     public function getMahasiswaByNim($nim)
     {
-        // Fetch the Mahasiswa along with the Admin info (Admin_NIM)
         $mahasiswa = Mahasiswa::where('NIM', $nim)->first();
 
         if ($mahasiswa) {
-            // Find the admin by Admin_NIM
             $admin = User::where('NIM', $mahasiswa->Admin_NIM)->first();
 
-            // Check if the admin exists and has the role 'QC'
             $qc_nim = null;
             $qc_name = null;
             if ($admin && $admin->role === 'QC') {
@@ -83,19 +78,6 @@ class UserController extends Controller
 
     public function submitTugas(Request $request, $nim, $id_tugas, $file_tugas)
     {
-        // Log::info("NIM: " . $nim);
-        // Log::info("ID Tugas: " . $id_tugas);
-        // Log::info("File Tugas: " . $file_tugas);
-        // $file_tugas = urldecode($file_tugas);
-        // // Validate that the file_tugas is a valid URL
-        // if (!filter_var($file_tugas, FILTER_VALIDATE_URL)) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Invalid URL for the submission link'
-        //     ], 400);
-        // }
-
-        // Check if the mahasiswa exists
         $mahasiswa = Mahasiswa::where('NIM', $nim)->first();
         if (!$mahasiswa) {
             return response()->json([
@@ -104,7 +86,6 @@ class UserController extends Controller
             ], 404);
         }
 
-        // Check if the task has already been submitted
         $existingSubmission = Tugas::where('Mahasiswa_NIM', $nim)
             ->where('ID_Tugas', $id_tugas)
             ->first();
@@ -116,11 +97,11 @@ class UserController extends Controller
             ], 409); // HTTP 409 Conflict
         }
 
-        // Save the task submission
         $tugas = new Tugas();
         $tugas->Mahasiswa_NIM = $nim;
         $tugas->ID_Tugas = $id_tugas;
         $tugas->File_Tugas = $file_tugas;
+        $tugas->time_submission = Carbon::now(); // Set the current timestamp
         $tugas->save();
 
         return response()->json([
@@ -128,6 +109,18 @@ class UserController extends Controller
             'message' => 'Berhasil submit Tugas, gacor!'
         ]);
     }
+
+            // Log::info("NIM: " . $nim);
+        // Log::info("ID Tugas: " . $id_tugas);
+        // Log::info("File Tugas: " . $file_tugas);
+        // $file_tugas = urldecode($file_tugas);
+        // // Validate that the file_tugas is a valid URL
+        // if (!filter_var($file_tugas, FILTER_VALIDATE_URL)) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Invalid URL for the submission link'
+        //     ], 400);
+        // }
 
     public function updateTugas(Request $request, $nim, $id_tugas)
     {
@@ -191,6 +184,8 @@ class UserController extends Controller
                     'file_tugas' => $tugas->File_Tugas,
                     'nilai' => $tugas->Nilai,
                     'updated_at' => $tugas->updated_at,
+                    'text_feedback' => $tugas->text_feedback, // Add this line
+                    'time_submission' => $tugas->time_submission ? $tugas->time_submission->format('Y-m-d H:i:s') : null, // Format the timestamp
                 ]
             ]);
         } else {
@@ -203,9 +198,7 @@ class UserController extends Controller
 
     public function submitPresensi(Request $request, $nim, $kode_presensi)
     {
-        // Cari mahasiswa berdasarkan NIM
         $mahasiswa = Mahasiswa::where('NIM', $nim)->first();
-
         if (!$mahasiswa) {
             return response()->json([
                 'success' => false,
@@ -213,7 +206,6 @@ class UserController extends Controller
             ], 404);
         }
 
-        // Validasi kode presensi melalui ValidPresensi
         $validPresensi = ValidPresensi::where('Kode_Presensi', $kode_presensi)->first();
 
         if (!$validPresensi) {
@@ -250,6 +242,47 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Presensi submitted successfully'
+        ]);
+    }
+
+    public function getRekapKehadiran($nim)
+    {
+        // Optional: Validate if the Mahasiswa exists
+        $mahasiswa = Mahasiswa::where('NIM', $nim)->first();
+        if (!$mahasiswa) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Mahasiswa tidak ditemukan.'
+            ], 404);
+        }
+
+        // Fetch all attendance records for the given NIM
+        // Eager load related 'kegiatan' (activities) to get their names for the report
+        $absensiRecords = Presensi::where('Mahasiswa_NIM', $nim)
+                                 ->with('kegiatan') // Load related activity data
+                                 ->orderBy('Waktu_Presensi', 'asc') // Order by attendance time
+                                 ->get();
+
+        // Prepare the data for the JSON response
+        $rekapData = $absensiRecords->map(function ($record) {
+            return [
+                'kegiatan_nama' => $record->kegiatan->Nama ?? 'N/A', // Access activity name from relationship
+                'waktu_presensi' => Carbon::parse($record->Waktu_Presensi)->format('d M Y, H:i'), // Format datetime
+                'status' => $record->Status ?? 'Hadir' // Assuming there's a 'Status' column or default to 'Hadir'
+            ];
+        });
+
+        // Calculate summary (e.g., total attended)
+        $totalAttendedActivities = $absensiRecords->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Rekap kehadiran berhasil diambil.',
+            'nim' => $nim,
+            'data' => $rekapData,
+            'summary' => [
+                'total_attended_activities' => $totalAttendedActivities,
+            ]
         ]);
     }
 }

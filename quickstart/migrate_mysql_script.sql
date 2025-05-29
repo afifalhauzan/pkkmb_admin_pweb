@@ -170,3 +170,5 @@ CREATE TABLE Presensi (
     FOREIGN KEY (Mahasiswa_NIM) REFERENCES Mahasiswa(NIM),
     FOREIGN KEY (Kegiatan_ID) REFERENCES Kegiatan(ID_Kegiatan)
 );
+
+select * from kegiatan;

@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\ValidTugas;
 use App\Models\Kegiatan;
 use App\Models\ValidPresensi;
+use App\Models\Presensi;
 use App\Models\Cluster;
 use App\Models\Mahasiswa;
 use App\Models\Tugas;
@@ -24,16 +25,27 @@ class PageController extends Controller
         $user = auth()->user();
         $role = $user->role;
 
-        $valid_tugas = ValidTugas::get(); // Adjust this query based on your requirements
+        // Fetch counts for dashboard cards
+        $totalKegiatan = Kegiatan::count();
+        $totalAbsensi = Presensi::count(); // Or ValidPresensi::count() if you want count of valid codes
+        $totalMahasiswa = Mahasiswa::count();
+
+        // Create an array to hold all the data you want to pass
+        $data = [
+            'totalKegiatan' => $totalKegiatan,
+            'totalAbsensi' => $totalAbsensi,
+            'totalMahasiswa' => $totalMahasiswa,
+            'valid_tugas' => ValidTugas::get(), // Your existing data
+        ];
 
         if ($role == 'QC') {
-            return view('qc-dashboard', compact('valid_tugas'));
+            return view('qc-dashboard', $data); // Pass the $data array
         } elseif ($role == 'PIT') {
-            return view('pit-dashboard', compact('valid_tugas'));
+            return view('pit-dashboard', $data); // Pass the $data array
         }
 
-
-        return view('dashboard', compact('valid_tugas'));  // Default for Admin or other roles
+        // Default for Admin or other roles
+        return view('dashboard', $data); // Pass the $data array
     }
 
     // public function penugasan()
@@ -61,6 +73,25 @@ class PageController extends Controller
         // Fetch necessary data or process logic here
         $valid_presensi = ValidPresensi::get();
         return view('absensi_dashboard', compact('valid_presensi')); // Return the view for Absensi
+    }
+
+    public function absensiDestroy($id)
+    {
+        $validPresensi = ValidPresensi::find($id);
+
+        if (!$validPresensi) {
+            // Or redirect back with an error message
+            return redirect()->back()->with('error', 'Kode Presensi tidak ditemukan.');
+        }
+
+        try {
+            $validPresensi->delete();
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'Kode Presensi berhasil dihapus.');
+        } catch (\Exception $e) {
+            // Handle any exceptions during deletion (e.g., database constraints)
+            return redirect()->back()->with('error', 'Gagal menghapus Kode Presensi: ' . $e->getMessage());
+        }
     }
 
     public function kegiatan()

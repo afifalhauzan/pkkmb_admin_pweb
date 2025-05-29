@@ -11,7 +11,8 @@
                 <!-- Sidebar -->
                 <div class="w-64 bg-blue-600 text-white p-2 md:p-10">
                     <nav class="space-y-2">
-                        <a href="{{ route('penugasan') }}" class="block px-4 py-2 hover:bg-blue-700">Penugasan</a>
+                        <!-- <a href="{{ route('penugasan') }}" class="block px-4 py-2 hover:bg-blue-700">Penugasan</a> -->
+                        <a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-blue-700">Dashboard</a>
                         <a href="" class="block px-4 py-2 hover:bg-blue-700">Mahasiswa</a>
                         <a href="{{ route('absensi') }}" class="block px-4 py-2 hover:bg-blue-700">Absensi</a>
                         <a hre f="{{ route('kegiatan') }}" class="block px-4 py-2 hover:bg-blue-700">Kegiatan</a>

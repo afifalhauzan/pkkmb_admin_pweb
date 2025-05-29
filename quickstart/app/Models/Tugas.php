@@ -13,7 +13,19 @@ class Tugas extends Model
     protected $primaryKey = 'id';
     public $incrementing = true;
 
-    protected $fillable = ['Mahasiswa_NIM', 'ID_Tugas', 'File_Tugas', 'Nilai'];
+    protected $fillable = [
+        'Mahasiswa_NIM',
+        'ID_Tugas',
+        'File_Tugas',
+        'Nilai',
+        'text_feedback', // Add this line
+        'time_submission', // Add this line
+    ];
+
+    // Cast the time_submission attribute to a datetime object
+    protected $casts = [
+        'time_submission' => 'datetime',
+    ];
 
     // Relationships
     public function mahasiswa()

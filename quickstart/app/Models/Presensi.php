@@ -14,7 +14,9 @@ class Presensi extends Model
     public $incrementing = true;
 
     protected $fillable = ['Kode_Presensi', 'Admin_NIM', 'Mahasiswa_NIM', 'Kegiatan_ID', 'Waktu_Presensi'];
-
+    protected $casts = [
+        'Waktu_Presensi' => 'datetime',
+    ];
     // Relationships
     public function admin()
     {
