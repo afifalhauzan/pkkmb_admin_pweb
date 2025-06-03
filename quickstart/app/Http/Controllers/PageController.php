@@ -25,27 +25,24 @@ class PageController extends Controller
         $user = auth()->user();
         $role = $user->role;
 
-        // Fetch counts for dashboard cards
         $totalKegiatan = Kegiatan::count();
-        $totalAbsensi = Presensi::count(); // Or ValidPresensi::count() if you want count of valid codes
+        $totalAbsensi = Presensi::count();
         $totalMahasiswa = Mahasiswa::count();
 
-        // Create an array to hold all the data you want to pass
         $data = [
             'totalKegiatan' => $totalKegiatan,
             'totalAbsensi' => $totalAbsensi,
             'totalMahasiswa' => $totalMahasiswa,
-            'valid_tugas' => ValidTugas::get(), // Your existing data
+            'valid_tugas' => ValidTugas::get(),
         ];
 
         if ($role == 'QC') {
-            return view('qc-dashboard', $data); // Pass the $data array
+            return view('qc-dashboard', $data);
         } elseif ($role == 'PIT') {
-            return view('pit-dashboard', $data); // Pass the $data array
+            return view('pit-dashboard', $data);
         }
 
-        // Default for Admin or other roles
-        return view('dashboard', $data); // Pass the $data array
+        return view('dashboard', $data);
     }
 
     // public function penugasan()

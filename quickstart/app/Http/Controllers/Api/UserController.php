@@ -86,16 +86,16 @@ class UserController extends Controller
             ], 404);
         }
 
-        $existingSubmission = Tugas::where('Mahasiswa_NIM', $nim)
-            ->where('ID_Tugas', $id_tugas)
-            ->first();
+        // $existingSubmission = Tugas::where('Mahasiswa_NIM', $nim)
+        //     ->where('ID_Tugas', $id_tugas)
+        //     ->first();
 
-        if ($existingSubmission) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Yah, kamu sudah submit tugas sebelumnya'
-            ], 409); // HTTP 409 Conflict
-        }
+        // if ($existingSubmission) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Yah, kamu sudah submit tugas sebelumnya'
+        //     ], 409); // HTTP 409 Conflict
+        // }
 
         $tugas = new Tugas();
         $tugas->Mahasiswa_NIM = $nim;

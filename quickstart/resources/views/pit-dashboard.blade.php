@@ -68,15 +68,15 @@
                     </div>
 
                     {{-- @if (!empty($valid_tugas))
-    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Valid Tugas Overview</h2>
-    <div class="bg-white p-6 rounded-lg shadow-md">
-        <ul>
-            @foreach($valid_tugas as $tugas)
-                <li>{{ $tugas->Judul }} - {{ $tugas->Description }}</li>
-                    @endforeach
-                    </ul>
-                </div>
-                @endif --}}
+                    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Valid Tugas Overview</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <ul>
+                            @foreach($valid_tugas as $tugas)
+                            <li>{{ $tugas->Judul }} - {{ $tugas->Description }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif --}}
             </div>
 
 

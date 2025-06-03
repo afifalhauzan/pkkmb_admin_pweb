@@ -11,7 +11,6 @@
                 <!-- Sidebar -->
                 <div class="w-64 bg-blue-600 text-white p-2 md:p-10">
                     <nav class="space-y-2">
-                        <!-- <a href="{{ route('penugasan') }}" class="block px-4 py-2 hover:bg-blue-700">Penugasan</a> -->
                         <a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-blue-700">Dashboard</a>
                         <a href="{{ route('mahasiswa') }}" class="block px-4 py-2 hover:bg-blue-700">Mahasiswa</a>
                         <a href="" class="block px-4 py-2 hover:bg-blue-700">Absensi</a>
@@ -64,22 +63,12 @@
                                 <div class="text-bold text-right text-blue-600">
                                     {{ $valid_presensi->kegiatan->Nama }}
                                 </div>
-                                <!-- <form action="{{ route('absensi.destroy', $valid_presensi->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Absensi?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition">
-                                        Delete
-                                    </button>
-                                </form> -->
                             </a>
-
                             @endforeach
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </x-app-layout>

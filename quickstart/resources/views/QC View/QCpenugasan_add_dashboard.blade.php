@@ -8,7 +8,6 @@
     <div class="">
         <div class="max-w-screen mx-auto">
             <div class="flex min-h-screen bg-gray-100">
-                <!-- Sidebar -->
                 <div class="w-64 bg-blue-600 text-white p-2 md:p-10">
                     <nav class="space-y-2">
                         <a href="" class="block px-4 py-2 hover:bg-blue-700">Penugasan</a>
@@ -16,22 +15,15 @@
                     </nav>
                 </div>
 
-                <!-- Content -->
                 <div class="flex-1 p-6">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <!-- Flex container for Title and Form -->
                         <div class="flex justify-between items-center p-4 border-b">
                             <div class="flex-1">
                                 <h2 class="text-xl font-semibold">Tambah Penugasan</h2>
                             </div>
                         </div>
-
-                        <!-- Form Section -->
-                        <!--  -->
                         <form action="{{ route('QCAddPenugasan') }}" method="POST" class="p-6">
                             @csrf
-
-                            <!-- Judul -->
                             <div class="mb-4">
                                 <label for="judul" class="block text-sm font-medium text-gray-700">Judul</label>
                                 <input type="text" id="judul" name="judul"
@@ -42,7 +34,6 @@
                                 @enderror
                             </div>
 
-                            <!-- Deskripsi -->
                             <div class="mb-4">
                                 <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
                                 <textarea id="deskripsi" name="deskripsi" rows="4"
@@ -53,7 +44,6 @@
                                 @enderror
                             </div>
 
-                            <!-- Submit Button -->
                             <div class="flex justify-end">
                                 <button type="submit"
                                     class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -61,14 +51,9 @@
                                 </button>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </x-app-layout>

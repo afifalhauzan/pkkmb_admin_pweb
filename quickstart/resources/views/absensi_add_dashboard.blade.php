@@ -11,7 +11,6 @@
                 <!-- Sidebar -->
                 <div class="w-64 bg-blue-600 text-white p-2 md:p-10">
                     <nav class="space-y-2">
-                        <!-- <a href="" class="block px-4 py-2 hover:bg-blue-700">Penugasan</a> -->
                         <a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-blue-700">Dashboard</a>
                         <a href="{{ route('mahasiswa') }}" class="block px-4 py-2 hover:bg-blue-700">Mahasiswa</a>
                         <a href="{{ route('absensi') }}" class="block px-4 py-2 hover:bg-blue-700">Absensi</a>
@@ -22,20 +21,13 @@
                 <!-- Content -->
                 <div class="flex-1 p-6">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <!-- Flex container for Title and Form -->
                         <div class="flex justify-between items-center p-4 border-b">
                             <div class="flex-1">
                                 <h2 class="text-xl font-semibold">Tambah Absensi</h2>
                             </div>
                         </div>
-
-                        <!-- Form Section -->
-                        <!--  -->
-                        <!-- Form Section -->
                         <form action="{{ route('addAbsensi') }}" method="POST" class="p-6">
                             @csrf
-
-                            <!-- Kode Presensi -->
                             <div class="mb-4">
                                 <label for="kode_presensi" class="block text-sm font-medium text-gray-700">Kode Presensi</label>
                                 <input type="text" id="kode_presensi" name="kode_presensi" value="{{ old('kode_presensi') }}"
@@ -45,8 +37,6 @@
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
-
-                            <!-- Nama Kegiatan (Dropdown for Kegiatan_ID) -->
                             <div class="mb-4">
                                 <label for="kegiatan_id" class="block text-sm font-medium text-gray-700">Nama Kegiatan</label>
                                 <select id="kegiatan_id" name="kegiatan_id"
@@ -83,15 +73,9 @@
                                 </button>
                             </div>
                         </form>
-
-
-
                     </div>
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </x-app-layout>
